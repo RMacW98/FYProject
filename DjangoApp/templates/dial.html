@@ -1,4 +1,4 @@
-<title>Map</title>
+<title>Dial</title>
 
 {% extends 'base.html' %}
 {% load leaflet_tags %}
@@ -12,7 +12,11 @@
 
 
 {% block extra_header %}
-  <style>#map {width: 20vw;height: 10vh;}</style>
+  <style>
+      #chart-container {
+          text-align: center;
+      }
+  </style>
 
    <title>My first chart using FusionCharts Suite XT</title>
 	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
@@ -79,6 +83,7 @@
   {% block extra_footer %}
 
     <div id="chart-container"></div>
+
   {% endblock %}
 
 
