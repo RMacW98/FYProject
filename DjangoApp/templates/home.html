@@ -16,12 +16,11 @@
 {% block body_content %}
 
 {% if user.is_authenticated %}
-    Hi {{ user.username }}!
 
     {% if latest_question_list %}
-        <ul>
+        <ul class="list-group list-group-flush" style="text-align: center">
         {% for question in latest_question_list %}
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+            <a href="{% url 'polls:detail' question.id %}" class="list-group-item list-group-item-action">{{ question.question_text }}</a>
         {% endfor %}
         </ul>
     {% else %}
