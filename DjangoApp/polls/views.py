@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views import generic
 from datetime import timezone
@@ -49,3 +50,12 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def dial(request):
+    return render(request, 'dial.html')
+
+
+class DialView(generic.ListView):
+    model = Question
+    template_name = 'polls/dial.html'

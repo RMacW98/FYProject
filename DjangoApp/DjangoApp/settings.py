@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'world',
     'crispy_forms',
     'leaflet',
     'accounts',
