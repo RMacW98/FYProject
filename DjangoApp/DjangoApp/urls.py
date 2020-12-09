@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('polls.urls')),
     path('accounts/', include('accounts.urls')),
     path('world/', include('world.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
