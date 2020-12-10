@@ -1,13 +1,11 @@
 <title>Dial</title>
 
 {% extends 'base.html' %}
-{% load leaflet_tags %}
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
 {% block head_title %}
-  {% trans "Map Page" %}
 {% endblock %}
 
 
@@ -18,9 +16,14 @@
       }
   </style>
 
-   <title>My first chart using FusionCharts Suite XT</title>
 	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
 	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+    <script type="text/javascript">
+        var actuals = '{{ results | safe }}';
+        console.log(actuals);
+    </script>
+
 	<script type="text/javascript">
             FusionCharts.ready(function(){
                 var chartObj = new FusionCharts({
@@ -78,7 +81,7 @@
 {% block body_content %}
 {% if user.is_authenticated %}
 
-  {#    </div>#}
+<h1>{{ votes.question_text }}!!</h1>
 
   {% block extra_footer %}
 
@@ -86,10 +89,10 @@
 
   {% endblock %}
 
-
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>
 {% endif %}
+
 {% endblock %}
 

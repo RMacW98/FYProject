@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views import generic
 from datetime import timezone
+from django.core import serializers
 
 from .models import Choice, Question
 
@@ -31,6 +32,18 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+
+class VoteView(generic.ListView):
+    model = Question
+    context_object_name = 'votes'
+    template_name = 'dial.html'
+
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.all()
 
 
 def vote(request, question_id):
