@@ -20,11 +20,29 @@
 	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 
     <script type="text/javascript">
-        var actuals = '{{ results | safe }}';
-        console.log(actuals);
-    </script>
+        var url = 'http://127.0.0.1:8000/rest/choice/'
+        var choices;
 
-	<script type="text/javascript">
+        $.ajax({
+            url: url,
+            success: function(data) {
+                choices = data;
+
+                //utilize your callback function
+                doSomething(choices);
+                }
+            });
+
+        //this is your callback function
+        function doSomething(param) {
+            //do something with your parameter
+
+            var total_votes = param[0].votes + param[1].votes;
+            var sentiment_score = param[1].votes/total_votes * 100;
+
+            console.log(param);
+            console.log(sentiment_score);
+
             FusionCharts.ready(function(){
                 var chartObj = new FusionCharts({
                 type: 'angulargauge',
@@ -66,7 +84,7 @@
                              "dials": {
                                 "dial": [
                                    {
-                                      "value": "67"
+                                      "value": sentiment_score
                                    }
                                 ]
                              }
@@ -75,13 +93,16 @@
             );
                 chartObj.render();
             });
-	</script>
+        }
+    </script>
+
+
 {% endblock %}
 
 {% block body_content %}
 {% if user.is_authenticated %}
 
-<h1>{{ votes.question_text }}!!</h1>
+
 
   {% block extra_footer %}
 

@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import Choice
 
 
-
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User

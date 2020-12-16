@@ -20,8 +20,23 @@
 	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 
     <script type="text/javascript">
-        var actuals = '{{ results | safe }}';
-        console.log(actuals);
+        //var actuals = '{{ results | safe }}';
+        //console.log(actuals);
+        $.get( "http://127.0.0.1:8000/rest/choice/", function( data ) {
+          $( ".result" ).html( data );
+          alert( "Load was performed." );
+          console.log(data);
+        });
+
+        function getChoice() {
+            $.ajax({
+            type: "GET",
+            url: HOST + "/rest/choice",
+            data: data
+            });
+            alert(data);
+        }
+
     </script>
 
 	<script type="text/javascript">
@@ -80,8 +95,6 @@
 
 {% block body_content %}
 {% if user.is_authenticated %}
-
-<h1>{{ question.question_text }}!!</h1>
 
   {% block extra_footer %}
 
