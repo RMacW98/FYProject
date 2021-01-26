@@ -14,15 +14,71 @@ from datetime import datetime, timedelta, date
 import pandas_datareader as pdr
 import matplotlib.pyplot as plt
 
+from newsapi import NewsApiClient
 from yahoofinancials import YahooFinancials
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
 
+# # # # NEWS API AUTHENTICATER # # # #
+class NewsAuthenticator:
+
+    def authenticate_news_api(self):
+        auth = NewsApiClient(api_key='cc3f4e3191f149658f3922e9c47ec1ad')
+        return auth
+
+
 # # # # NEWS API STREAMER # # # #
-class ArticleStreamer:
+class NewsAPIArticleStreamer:
     """
     Class for streaming and processing articles daily
+    """
+
+    def __init__(self):
+        self.news_authenticator = NewsAuthenticator()
+
+    def stream_articles(self, query, from_param, to):
+        # This handles Twitter authetification and the connection to Twitter Streaming API
+        newsapi = self.news_authenticator.authenticate_news_api()
+        all_articles = newsapi.get_everything(q=query,
+                                              from_param=from_param,
+                                              to=to,
+                                              language='en')
+
+        return all_articles
+
+
+class NewsAPIArticleCleaner:
+    """
+    Functionality for importing and cleaning news articles
+    """
+
+    def import_json(self, fetched_json_file):
+        # Import json and normalize data
+        df = pd.read_json(fetched_json_file)
+        norm_articles = pd.json_normalize(df['articles'])
+
+        return norm_articles
+
+    def clean_article(self, article):
+        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", article).split())
+
+    def create_article(self, articles):
+        article = articles[['author', 'title', 'description', 'url', 'source.name', 'publishedAt']]
+        article['publishedAt'] = pd.to_datetime(article['publishedAt'], infer_datetime_format=True)
+        article.sort_values(by='publishedAt', inplace=True)
+        article = article.reset_index()
+        article = article.drop(['index'], axis=1)
+
+        outlet = articles[['source.id', 'source.name']]
+
+        return article, outlet
+
+
+# # # # YAHOO FINANCE STREAMER # # # #
+class YahooArticleStreamer:
+    """
+    Class for streaming and processing articles daily from Yahoo Finance
     """
 
     def __init__(self):
@@ -301,24 +357,52 @@ if __name__ == '__main__':
         'referer': 'https://www.google.com',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44'
     }
-    todays_date = date.today().strftime("%d%m%Y")
+    date = date.today().strftime("%Y%m%d")
+    todays_date = date.today().strftime("%Y-%m-%d")
+    yesterdays_date = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
 
     article_cleaner = ArticleCleaner()
-    article_streamer = ArticleStreamer()
+    yahoo_article_streamer = YahooArticleStreamer()
+
+    news_api_streamer = NewsAPIArticleStreamer()
+    news_api_cleaner = NewsAPIArticleCleaner()
+
     sentiment_analyzer = SentimentAnalyzer()
 
-    all_articles = article_streamer.get_the_news(query)
+    news_api_articles = news_api_streamer.stream_articles(query, yesterdays_date, todays_date)
+    yahoo_articles = yahoo_article_streamer.get_the_news(query)
 
-    clean_title = np.array([article_cleaner.clean_article(article) for article in all_articles['title']])
-    clean_desc = np.array([article_cleaner.clean_article(article) for article in all_articles['description']])
+    news_article_data = pd.json_normalize(news_api_articles['articles'])
+    news_api_df, outlets = article_cleaner.create_article(news_article_data)
+    news_api_df['publishedAt'] = pd.to_datetime(news_api_df['publishedAt'], infer_datetime_format=True)
 
-    all_articles['clean_title'] = clean_title
-    all_articles['clean_description'] = clean_desc
+    yahoo_clean_title = np.array([article_cleaner.clean_article(article) for article in yahoo_articles['title']])
+    yahoo_clean_desc = np.array([article_cleaner.clean_article(article) for article in yahoo_articles['description']])
 
-    recent_articles = article_cleaner.get_recent_articles(all_articles)
+    news_api_clean_title = np.array([article_cleaner.clean_article(article) for article in news_api_df['title']])
+    news_api_clean_desc = np.array([article_cleaner.clean_article(article) for article in news_api_df['description']])
 
-    scored_news = sentiment_analyzer.analyze_recent_headlines(recent_articles)
+    yahoo_articles['clean_title'] = yahoo_clean_title
+    yahoo_articles['clean_description'] = yahoo_clean_desc
 
-    high_news = scored_news[(scored_news['compound'] > .5) | (scored_news['compound'] < -0.5)]
+    news_api_df['clean_title'] = news_api_clean_title
+    news_api_df['clean_description'] = news_api_clean_desc
 
-    high_news.to_csv(f'.\{todays_date}sentiment.csv', index=False)
+    recent_yahoo_articles = article_cleaner.get_recent_articles(yahoo_articles)
+
+    yahoo_scored_news = sentiment_analyzer.analyze_recent_headlines(recent_yahoo_articles)
+    news_api_scored_news = sentiment_analyzer.analyze_recent_headlines(news_api_df)
+
+    high_yahoo_news = yahoo_scored_news[(yahoo_scored_news['compound'] > .5) | (yahoo_scored_news['compound'] < -0.5)]
+    high_news_api_news = news_api_scored_news[(news_api_scored_news['compound'] > .5) | (news_api_scored_news['compound'] < -0.5)]
+
+    final_yahoo_news = high_yahoo_news[['publishedAt', 'clean_title', 'compound']]
+    final_news_api = high_news_api_news[['publishedAt', 'clean_title', 'compound']]
+
+    final_news = final_yahoo_news.append(final_news_api)
+    final_news = final_news.reset_index(drop=True)
+
+    final_news['date'] = pd.to_datetime(final_news['publishedAt'], format='%Y-%m-%d')
+    final_news['date'] = final_news['date'].dt.strftime('%Y-%m-%d')
+
+    final_news.to_csv(f'.\{date}sentiment.csv', index=False)
