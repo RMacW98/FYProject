@@ -1,0 +1,43 @@
+publishedAt,clean_title,neg,neu,pos,compound,predicted_label,date
+2021-01-27 10:51:13,American Cancer Society Launches 1M Cryptocurrency Fund,0.423,0.577,0.0,-0.6597,neg,2021-01-27
+2021-01-27 19:27:13,Could meme stocks like GameStop kill bitcoin s rise,0.142,0.151,0.708,0.9771,pos,2021-01-27
+2021-01-27 16:51:13,Bitcoin Bounces Off 30 000 as Record Momentum Fades,0.0,0.276,0.724,0.9818,pos,2021-01-27
+2021-01-27 10:51:13,American Cancer Society Launches 1M Cryptocurrency Fund CoinDesk,0.386,0.614,0.0,-0.6597,neg,2021-01-27
+2021-01-26 22:51:13,Is GBTC Stock A Good Buy After Bitcoin Tumbles From Highs,0.824,0.129,0.047,-0.9968,neg,2021-01-26
+2021-01-27 10:51:13,3 Unstoppable Stocks That ll Crush Bitcoin in 2021 The Motley Fool,0.441,0.559,0.0,-0.6486,neg,2021-01-27
+2021-01-27 14:51:13,American Cancer Society To Use Cryptocurrency To Fight Cancer,0.655,0.345,0.0,-0.9081,neg,2021-01-27
+2021-01-27 08:51:13,US Man Sentenced to Prison for Embezzling 20M of ICO Investors Funds CoinDesk,0.286,0.714,0.0,-0.5267,neg,2021-01-27
+2021-01-27 15:51:13,Silver Lake Co Founder Tells Davos Cash Is Used Far More in Crime Than Bitcoin,0.213,0.787,0.0,-0.5829,neg,2021-01-27
+2021-01-26 23:51:13,Bitcoin Warren Buffett won t touch it and here s why,0.0,0.684,0.316,0.5719,pos,2021-01-26
+2021-01-27 04:51:13,Litecoin Falls 10 In Rout By Investing com,0.935,0.065,0.0,-0.9993,neg,2021-01-27
+2021-01-27 04:51:13,Litecoin Falls 10 20 In Selloff By Investing com,0.961,0.039,0.0,-0.9997,neg,2021-01-27
+2021-01-27 04:51:13,Cardano Falls 10 17 In Selloff By Investing com,0.961,0.039,0.0,-0.9997,neg,2021-01-27
+2021-01-26 20:51:13,Bitcoin Falls as Miners Sell Institutions Watch Yellen,0.935,0.065,0.0,-0.9993,neg,2021-01-26
+2021-01-27 04:51:13,Litecoin Falls 10 20 In Rout,0.953,0.047,0.0,-0.9993,neg,2021-01-27
+2021-01-27 04:51:13,Cardano Falls 10 17 In Rout,0.953,0.047,0.0,-0.9993,neg,2021-01-27
+2021-01-26 22:51:13,DeFi tokens bag double digit gains as bears pin Bitcoin price below 33K,0.256,0.256,0.488,0.9325,pos,2021-01-26
+2021-01-27 08:51:13,US Man Sentenced to Prison for Embezzling 20M of ICO Investors Funds,0.306,0.694,0.0,-0.5267,neg,2021-01-27
+2021-01-27 17:51:13,Polkadot Price Prediction DOT poised to rise higher as ecosystem continues to grow rapidly,0.0,0.343,0.657,0.9834,pos,2021-01-27
+2021-01-27 15:51:13,Stock trading platforms suffer tech problems amid market mayhem,0.47,0.53,0.0,-0.7351,neg,2021-01-27
+2021-01-27 04:51:13,Shorts Now Paying the Longs Funding Rates on BTC ETH Perps Going Negative Across the Board,0.198,0.802,0.0,-0.5719,neg,2021-01-27
+2021-01-26 21:51:13,How scammers siphoned 36B in fraudulent unemployment payments from US,0.433,0.567,0.0,-0.7269,neg,2021-01-26
+2021-01-26 23:51:13,SkyBridge s Anthony Scaramucci Talks Up New Bitcoin Fund Crypto s Exponential Liftoff,0.0,0.625,0.375,0.7906,pos,2021-01-26
+2021-01-26 23:51:13,SkyBridge s Scaramucci Talks Up New Bitcoin Fund Crypto s Exponential Liftoff,0.0,0.6,0.4,0.7906,pos,2021-01-26
+2021-01-27 09:51:13,Scams are driving South African authorities to regulate crypto trading,0.297,0.703,0.0,-0.5859,neg,2021-01-27
+2021-01-27 15:51:13,Big Name Ivy League Endowments Are Now Buying Bitcoin ETF Trends,0.0,0.476,0.524,0.9325,pos,2021-01-27
+2021-01-27 14:51:13,TronGo s Launch A New Era of Decentralized Reward Systems Begins,0.0,0.684,0.316,0.5719,pos,2021-01-27
+2021-01-27 14:51:13,Scaramucci Says the GameStop Saga Is Positive for Bitcoin,0.0,0.69,0.31,0.5574,pos,2021-01-27
+2021-01-27 11:51:13,Lawsuit Against Israeli Crypto Entrepreneur Moshe Hegog Fails in US Court CoinDesk,0.32,0.68,0.0,-0.5719,neg,2021-01-27
+2021-01-27 11:51:13,Opening Bell Earnings Virus Concerns Spur U S Tech Shares Gold Slumps Investing com CA,0.822,0.148,0.03,-0.9978,neg,2021-01-27
+2021-01-27 10:51:13,3 Unstoppable Stocks at All Time Highs That You Can Still Buy The Motley Fool,0.281,0.719,0.0,-0.5719,neg,2021-01-27
+2021-01-27 04:51:13,Crypterium to crowdfund on Seedrs monthly profits rise 10X during Coronavirus pandemic By BTC Peers,0.0,0.352,0.648,0.9847,pos,2021-01-27
+2021-01-27 05:51:13,GameStop Is Rage Against the Financial Machine,0.375,0.625,0.0,-0.5574,neg,2021-01-27
+2021-01-27 04:51:13,Scaramucci Says the GameStop Phenomenon Is Positive for Bitcoin,0.0,0.69,0.31,0.5574,pos,2021-01-27
+2021-01-27 17:51:13,National Crime Agency warns novice and veteran traders alike of rise in clone company scams ZDNet,0.209,0.288,0.504,0.9652,pos,2021-01-27
+2021-01-27 15:51:13,Silver Lake Co Founder Tells Davos Cash Is Used Far More in Crime Than Bitcoin CoinDesk,0.201,0.799,0.0,-0.5829,neg,2021-01-27
+2021-01-27 11:51:13,Opening Bell Earnings Virus Concerns Spur U S Tech Shares Gold Slumps Investing com,0.833,0.137,0.03,-0.9978,neg,2021-01-27
+2021-01-27 04:51:13,Bitcoin Nearing 50 Day Moving Average Whales Are Back to Buying,0.0,0.476,0.524,0.9325,pos,2021-01-27
+2021-01-27 19:24:32,Could meme stocks like GameStop kill bitcoin s rise,0.142,0.151,0.708,0.9771,pos,2021-01-27
+2021-01-26 07:07:40,Signal is drama free for now but it should prepare for the worst,0.745,0.213,0.042,-0.9944,neg,2021-01-26
+2021-01-27 11:15:56,American Cancer Society Launches 1M Cryptocurrency Fund,0.423,0.577,0.0,-0.6597,neg,2021-01-27
+2021-01-26 19:44:57,Maybe Having A Crypto Expert At SEC s Helm Isn t So Great For Crypto Company Being Sued By SEC,0.0,0.785,0.215,0.659,pos,2021-01-26
