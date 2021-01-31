@@ -1,54 +1,60 @@
 publishedAt,clean_title,neg,neu,pos,compound,predicted_label,date
-2021-01-30 11:43:47,India plans to introduce law to ban Bitcoin other private cryptocurrencies,0.265,0.735,0.0,-0.5574,neg,2021-01-30
-2021-01-29 19:43:47,Two Bars for Bitcoins Owner in New York s Hell s Kitchen Selling Out for Cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
-2021-01-29 20:43:47,Dogecoin jumps more than 300 as Reddit tries to take on Wall Street,0.0,0.19,0.81,0.997,pos,2021-01-29
-2021-01-29 18:43:47,India Would Ban Private Cryptocurrencies Under Proposed Legislation CoinDesk,0.31,0.69,0.0,-0.5574,neg,2021-01-29
-2021-01-29 18:43:47,Robinhood Halts Instant Buying Power For Crypto,0.0,0.353,0.647,0.9325,pos,2021-01-29
-2021-01-29 21:43:47,Bitcoin s spike drives rebound in hard hit crypto mining stocks,0.046,0.263,0.691,0.981,pos,2021-01-29
-2021-01-30 00:43:47,GMI Model Estimates Bitcoin Fair Value At 300K By October 2021,0.0,0.657,0.343,0.5719,pos,2021-01-30
-2021-01-29 21:43:47,What is Dogecoin and Why Are People Buying It,0.0,0.421,0.579,0.9325,pos,2021-01-29
-2021-01-29 18:43:47,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
-2021-01-29 23:43:47,Robinhood users are furious that it intervened in GameStop trading This map reveals where they are,0.198,0.802,0.0,-0.5719,neg,2021-01-29
-2021-01-29 19:43:47,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
-2021-01-29 18:43:47,CORRECTED Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.545,0.455,0.0,-0.9618,neg,2021-01-29
-2021-01-30 04:43:47,Litecoin Falls 11 39 In Selloff,0.977,0.023,0.0,-0.9997,neg,2021-01-30
-2021-01-30 04:43:47,XRP Soars 30 63 In Rally By Investing com,0.0,0.074,0.926,0.999,pos,2021-01-30
-2021-01-30 04:43:47,Litecoin Falls 11 39 In Selloff By Investing com,0.961,0.039,0.0,-0.9997,neg,2021-01-30
-2021-01-30 04:43:47,XRP Climbs 10 65 In Rally By Investing com,0.0,0.333,0.667,0.9682,pos,2021-01-30
-2021-01-30 06:43:47,India Plans to Introduce Legislation to Ban Cryptocurrencies,0.34,0.66,0.0,-0.5574,neg,2021-01-30
-2021-01-30 04:43:47,XRP Climbs 10 65 In Bullish Trade,0.0,0.105,0.895,0.997,pos,2021-01-30
-2021-01-29 18:43:47,Ray Dalio clarifies his position on Bitcoin saying he greatly admires it CryptoSlate,0.0,0.701,0.299,0.5709,pos,2021-01-29
-2021-01-29 21:43:47,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
-2021-01-29 19:43:47,KDKA Investigates Financial Advisors Explain Dangers Of Treating Buying Stocks Like Sports Gambling,0.12,0.375,0.506,0.9231,pos,2021-01-29
-2021-01-29 18:43:47,India Would Ban Private Cryptocurrencies Under Proposed Legislation,0.34,0.66,0.0,-0.5574,neg,2021-01-29
-2021-01-29 19:43:47,Everything we know about the GameStop stock insanity,0.346,0.654,0.0,-0.5719,neg,2021-01-29
-2021-01-30 04:43:47,Bitcoin Falls 10 22 In Rout,0.953,0.047,0.0,-0.9993,neg,2021-01-30
-2021-01-30 16:19:47,Robinhood restricts Instant Buying of crypto citing extraordinary market conditions,0.108,0.376,0.516,0.9136,pos,2021-01-30
-2021-01-29 23:43:47,Robinhood users are furious that it intervened in GameStop trading This map reveals where they are,0.198,0.802,0.0,-0.5719,neg,2021-01-29
-2021-01-30 12:43:47,9 great reads from CNET this week,0.0,0.549,0.451,0.6249,pos,2021-01-30
-2021-01-30 10:43:47,5 Awful Stocks Robinhood Investors Can t Stop Buying,0.257,0.198,0.545,0.8689,pos,2021-01-30
-2021-01-30 05:43:47,These 3 Red Hot Stocks Could Plunge More than 50 If Wall Street s Right,0.871,0.129,0.0,-0.9988,neg,2021-01-30
-2021-01-30 05:43:47,These 3 Red Hot Stocks Could Plunge More than 50 If Wall Street s Right The Motley Fool,0.857,0.143,0.0,-0.9989,neg,2021-01-30
-2021-01-30 05:43:47,Fun and GameStop National Review,0.0,0.548,0.452,0.5106,pos,2021-01-30
-2021-01-30 05:43:47,Fun and GameStop,0.0,0.377,0.623,0.5106,pos,2021-01-30
-2021-01-29 20:43:47,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
-2021-01-29 23:43:47,After a tumultuous week some fear Robinhood s actions set a horrible precedent,0.456,0.544,0.0,-0.7717,neg,2021-01-29
-2021-01-29 23:43:47,After a tumultuous week some fear Robinhood s actions set a horrible precedent,0.456,0.544,0.0,-0.7717,neg,2021-01-29
-2021-01-29 20:43:47,Bitcoin Soars After Tesla CEO Elon Musk Says This 1 Word on Twitter,0.0,0.134,0.866,0.9985,pos,2021-01-29
-2021-01-29 21:43:47,US stocks suffer worst week since October amid Reddit fueled trading craze,0.776,0.224,0.0,-0.9906,neg,2021-01-29
-2021-01-29 20:43:47,GLOBAL MARKETS Dollar stocks slide as virus social trading cools sentiment,0.836,0.164,0.0,-0.997,neg,2021-01-29
-2021-01-29 17:43:47,Downtown Weatherford building damaged after man crashes into it officials say,0.92,0.08,0.0,-0.9993,neg,2021-01-29
-2021-01-30 16:19:47,Robinhood restricts instant buying of crypto citing extraordinary market conditions,0.108,0.376,0.516,0.9136,pos,2021-01-30
-2021-01-29 19:43:47,Govt may introduce bill to ban control and regulate cryptocurrencies,0.286,0.714,0.0,-0.5574,neg,2021-01-29
-2021-01-30 02:43:47,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-30
-2021-01-29 19:43:47,Elon Musk and Ray Dalio Send Bitcoin Stocks Soaring,0.0,0.101,0.899,0.9985,pos,2021-01-29
-2021-01-29 19:43:47,Elon Musk and Ray Dalio Send Bitcoin Stocks Soaring The Motley Fool,0.035,0.119,0.846,0.9984,pos,2021-01-29
-2021-01-29 21:43:47,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
-2021-01-29 21:43:47,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
-2021-01-29 21:43:47,Analysis GameStop s Reddit Rally Puts Scrutiny on Social Media Forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
-2021-01-29 22:43:47,Dogecoin soars another 600 as Reddit frenzy pushes the token into the top 10 cryptocurrencies by,0.026,0.148,0.826,0.9985,pos,2021-01-29
-2021-01-29 21:43:47,Ethereum Price Prediction ETH on the verge of a 30 breakout towards 1 900,0.0,0.5,0.5,0.9325,pos,2021-01-29
-2021-01-29 19:43:47,Short selling What it is why it s risky and how the squeeze happens,0.538,0.462,0.0,-0.9413,neg,2021-01-29
+2021-01-30 12:03:11,India plans to introduce law to ban Bitcoin other private cryptocurrencies,0.265,0.735,0.0,-0.5574,neg,2021-01-30
+2021-01-29 19:03:11,Two Bars for Bitcoins Owner in New York s Hell s Kitchen Selling Out for Cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
+2021-01-29 20:03:11,Dogecoin jumps more than 300 as Reddit tries to take on Wall Street,0.0,0.19,0.81,0.997,pos,2021-01-29
+2021-01-29 19:03:11,India Would Ban Private Cryptocurrencies Under Proposed Legislation CoinDesk,0.31,0.69,0.0,-0.5574,neg,2021-01-29
+2021-01-29 22:03:11,Bitcoin s spike drives rebound in hard hit crypto mining stocks,0.046,0.263,0.691,0.981,pos,2021-01-29
+2021-01-30 01:03:11,GMI Model Estimates Bitcoin Fair Value At 300K By October 2021,0.0,0.657,0.343,0.5719,pos,2021-01-30
+2021-01-29 20:03:11,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
+2021-01-29 21:03:11,What is Dogecoin and Why Are People Buying It,0.0,0.421,0.579,0.9325,pos,2021-01-29
+2021-01-29 19:03:11,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
+2021-01-29 19:03:11,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
+2021-01-29 18:03:11,Robinhood Halts Instant Buying Power For Crypto,0.0,0.353,0.647,0.9325,pos,2021-01-29
+2021-01-29 19:03:11,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
+2021-01-29 19:03:11,Two bars for bitcoins owner in New York s Hell s Kitchen selling out for cryptocurrency,0.565,0.435,0.0,-0.9618,neg,2021-01-29
+2021-01-30 05:03:11,XRP Jumps 20 32 In Rally By Investing com,0.0,0.095,0.905,0.9982,pos,2021-01-30
+2021-01-30 05:03:11,XRP Climbs 10 65 In Rally By Investing com,0.0,0.333,0.667,0.9682,pos,2021-01-30
+2021-01-30 05:03:11,Litecoin Falls 11 39 In Selloff By Investing com,0.961,0.039,0.0,-0.9997,neg,2021-01-30
+2021-01-30 16:39:11,Robinhood restricts Instant Buying of crypto citing extraordinary market conditions,0.108,0.376,0.516,0.9136,pos,2021-01-30
+2021-01-29 18:03:11,Bitcoin soars 14 on Musk namecheck on Twitter,0.0,0.09,0.91,0.9985,pos,2021-01-29
+2021-01-30 05:03:11,XRP Soars 30 63 In Rally By Investing com,0.0,0.074,0.926,0.999,pos,2021-01-30
+2021-01-30 16:39:11,Tron Ticker Confusion Would Be TRX Crypto Investors Mistakenly Buy Tanzanian Gold TRX Stock,0.268,0.732,0.0,-0.5267,neg,2021-01-30
+2021-01-29 23:03:11,180M Bitcoin Trust Completes Canadian IPO Fully Invested on First Day CoinDesk,0.0,0.769,0.231,0.5106,pos,2021-01-29
+2021-01-30 00:03:11,Robinhood users are furious that it intervened in GameStop trading This map reveals where they are,0.198,0.802,0.0,-0.5719,neg,2021-01-30
+2021-01-29 23:03:11,180M Bitcoin Trust Completes Canadian IPO Fully Invested on First Day,0.0,0.752,0.248,0.5106,pos,2021-01-29
+2021-01-29 22:03:11,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
+2021-01-29 18:03:11,India Would Ban Private Cryptocurrencies Under Proposed Legislation,0.34,0.66,0.0,-0.5574,neg,2021-01-29
+2021-01-30 00:03:11,Robinhood users are furious that it intervened in GameStop trading This map reveals where they are,0.198,0.802,0.0,-0.5719,neg,2021-01-30
+2021-01-30 05:03:11,Litecoin Falls 11 39 In Selloff,0.977,0.023,0.0,-0.9997,neg,2021-01-30
+2021-01-30 05:03:11,XRP Climbs 10 65 In Bullish Trade,0.0,0.105,0.895,0.997,pos,2021-01-30
+2021-01-30 07:03:11,India Plans to Introduce Legislation to Ban Cryptocurrencies,0.34,0.66,0.0,-0.5574,neg,2021-01-30
+2021-01-30 05:03:11,Bitcoin Falls 10 22 In Rout,0.953,0.047,0.0,-0.9993,neg,2021-01-30
+2021-01-30 16:39:11,Robinhood restricts Instant Buying of crypto citing extraordinary market conditions,0.108,0.376,0.516,0.9136,pos,2021-01-30
+2021-01-29 18:03:11,Ray Dalio clarifies his position on Bitcoin saying he greatly admires it CryptoSlate,0.0,0.701,0.299,0.5709,pos,2021-01-29
+2021-01-29 20:03:11,KDKA Investigates Financial Advisors Explain Dangers Of Treating Buying Stocks Like Sports Gambling,0.12,0.375,0.506,0.9231,pos,2021-01-29
+2021-01-29 20:03:11,Everything we know about the GameStop stock insanity,0.346,0.654,0.0,-0.5719,neg,2021-01-29
+2021-01-30 13:03:11,9 great reads from CNET this week,0.0,0.549,0.451,0.6249,pos,2021-01-30
+2021-01-30 11:03:11,5 Awful Stocks Robinhood Investors Can t Stop Buying,0.257,0.198,0.545,0.8689,pos,2021-01-30
+2021-01-30 05:03:11,These 3 Red Hot Stocks Could Plunge More than 50 If Wall Street s Right The Motley Fool,0.857,0.143,0.0,-0.9989,neg,2021-01-30
+2021-01-29 20:03:11,Elon Musk and Ray Dalio Send Bitcoin Stocks Soaring,0.0,0.101,0.899,0.9985,pos,2021-01-29
+2021-01-30 05:03:11,Fun and GameStop,0.0,0.377,0.623,0.5106,pos,2021-01-30
+2021-01-29 20:03:11,Elon Musk and Ray Dalio Send Bitcoin Stocks Soaring The Motley Fool,0.035,0.119,0.846,0.9984,pos,2021-01-29
+2021-01-29 22:03:11,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
+2021-01-29 21:03:11,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
+2021-01-30 00:03:11,After a tumultuous week some fear Robinhood s actions set a horrible precedent,0.456,0.544,0.0,-0.7717,neg,2021-01-30
+2021-01-29 21:03:11,Bitcoin Soars After Tesla CEO Elon Musk Says This 1 Word on Twitter The Motley Fool,0.033,0.15,0.817,0.9984,pos,2021-01-29
+2021-01-29 21:03:11,US stocks suffer worst week since October amid Reddit fueled trading craze,0.776,0.224,0.0,-0.9906,neg,2021-01-29
+2021-01-29 20:03:11,GLOBAL MARKETS Dollar stocks slide as virus social trading cools sentiment,0.836,0.164,0.0,-0.997,neg,2021-01-29
+2021-01-29 18:03:11,Downtown Weatherford building damaged after man crashes into it officials say,0.92,0.08,0.0,-0.9993,neg,2021-01-29
+2021-01-29 20:03:11,Govt may introduce bill to ban control and regulate cryptocurrencies,0.286,0.714,0.0,-0.5574,neg,2021-01-29
+2021-01-30 11:03:11,5 Awful Stocks Robinhood Investors Can t Stop Buying The Motley Fool,0.323,0.239,0.438,0.7845,pos,2021-01-30
+2021-01-30 05:03:11,These 3 Red Hot Stocks Could Plunge More than 50 If Wall Street s Right,0.871,0.129,0.0,-0.9988,neg,2021-01-30
+2021-01-30 02:03:11,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-30
+2021-01-30 05:03:11,Fun and GameStop National Review,0.0,0.548,0.452,0.5106,pos,2021-01-30
+2021-01-29 22:03:11,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
+2021-01-29 22:03:11,Analysis GameStop s Reddit rally puts scrutiny on social media forums,0.0,0.36,0.64,0.9682,pos,2021-01-29
+2021-01-29 23:03:11,Dogecoin soars another 600 as Reddit frenzy pushes the token into the top 10 cryptocurrencies by,0.026,0.148,0.826,0.9985,pos,2021-01-29
+2021-01-29 21:03:11,Ethereum Price Prediction ETH on the verge of a 30 breakout towards 1 900,0.0,0.5,0.5,0.9325,pos,2021-01-29
 2021-01-30 11:31:02,India plans to introduce law to ban Bitcoin other private cryptocurrencies,0.265,0.735,0.0,-0.5574,neg,2021-01-30
 2021-01-29 02:10:50,WallStreetsBets craze pushes dogecoin up 5x in 24 hours,0.11,0.479,0.411,0.7506,pos,2021-01-29
 2021-01-29 10:59:39,Elon Musk changes Twitter bio to bitcoin chaos ensues,0.316,0.684,0.0,-0.5719,neg,2021-01-29
