@@ -1,24 +1,28 @@
 import re
-import csv
 from time import sleep
-import requests
-import json
 import pandas as pd
 import numpy as np
 import requests
+import argparse
 import bs4
 from bs4 import BeautifulSoup
 import datetime
 from datetime import datetime, timedelta, date
 
-import pandas_datareader as pdr
-import matplotlib.pyplot as plt
-
 from newsapi import NewsApiClient
 from yahoofinancials import YahooFinancials
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
+parser = argparse.ArgumentParser()
+
+parser.add_argument('tradesymbol', help="Add a trading symbol against the USDT")
+parser.add_argument('query', help="Add a trading symbol against the USDT")
+parser.add_argument('-v', '--verbose', help='Turn on verbose mode', action='store_true')
+
+args = parser.parse_args()
+
+tradesymbol = args.tradesymbol
+query = args.query
 
 # # # # NEWS API AUTHENTICATER # # # #
 class NewsAuthenticator:
@@ -349,7 +353,6 @@ class PriceStreamer:
 
 
 if __name__ == '__main__':
-    query = 'cryptocurrency'
     headers = {
         'accept': '*/*',
         'accept-encoding': 'gzip, deflate, br',

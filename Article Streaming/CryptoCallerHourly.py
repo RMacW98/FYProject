@@ -9,11 +9,11 @@ from time import sleep
 import pandas as pd
 import numpy as np
 import requests
+import argparse
 import bs4
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 
 import shrimpy
 from newsapi import NewsApiClient
@@ -21,9 +21,16 @@ from yahoofinancials import YahooFinancials
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
+parser = argparse.ArgumentParser()
 
-query = 'cryptocurrency'
-trading_symbol = 'BTC'
+parser.add_argument('tradesymbol', help="Add a trading symbol against the USDT")
+parser.add_argument('query', help="Add a trading symbol against the USDT")
+parser.add_argument('-v', '--verbose', help='Turn on verbose mode', action='store_true')
+
+args = parser.parse_args()
+
+trading_symbol = args.tradesymbol
+query = args.query
 
 headers = {
     'accept': '*/*',
@@ -556,7 +563,7 @@ def main():
     yahoo_articles = yahoo_article_streamer.get_the_news(query)
 
     news_article_data = pd.json_normalize(news_api_articles['articles'])
-    news_api_df, outlets = article_cleaner.create_article(news_article_data)
+    news_api_df, outlets = news_api_cleaner.create_article(news_article_data)
     news_api_df['publishedAt'] = pd.to_datetime(news_api_df['publishedAt'], infer_datetime_format=True)
 
     yahoo_clean_title = np.array([article_cleaner.clean_article(article) for article in yahoo_articles['title']])
@@ -585,7 +592,9 @@ def main():
 
     high_headlines = high_headlines.drop(columns=['index'])
 
-    # high_headlines.to_csv(f'.\datasets\{date}sentiment.csv', index=False)
+    high_headlines.to_csv(f'.\{trading_symbol}datasets\{date}sentiment.csv', index=False)
+    high_headlines.to_csv(f'.\{trading_symbol}datasets\overall_sentiment.csv', index=False, mode='a', header=False)
+
     high_headlines.to_csv(f'.\datasets\overall_sentiment.csv', index=False, mode='a', header=False)
 
     overall_headlines = pd.read_csv('.\datasets\overall_sentiment.csv')
