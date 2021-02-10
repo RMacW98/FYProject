@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 import requests
 import argparse
+import psycopg2
 import bs4
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
@@ -126,7 +127,11 @@ class YahooArticleStreamer:
         raw_link = card.find('a').get('href')
         unquoted_link = requests.utils.unquote(raw_link)
         pattern = re.compile(r'RU=(.+)\/RK')
-        clean_link = re.search(pattern, unquoted_link).group(1)
+
+        try:
+            clean_link = re.search(pattern, unquoted_link).group(1)
+        except:
+            clean_link = None
 
         article = (headline, source, posted, description, clean_link)
         return article
@@ -201,9 +206,6 @@ class ArticleCleaner():
         recent_articles = pd.DataFrame()
 
         for index, row in all_articles.iterrows():
-            if 'hour' in row.uploaded:
-                recent_articles = recent_articles.append(row)
-
             if 'minute' in row.uploaded:
                 recent_articles = recent_articles.append(row)
 
@@ -268,6 +270,7 @@ class SentimentAnalyzer():
             'bears': -10,
             'hodl': 10,
             'pulls back': -40,
+            'pulled back': -40,
             'selloff': -70,
             'retrace': -70,
             'drop': -50,
@@ -545,6 +548,54 @@ class TradeCalls:
         return sentiment_Buy, sentiment_Sell
 
 
+class DatabaseClient:
+    """
+    Functionality for inserting and reading from the database
+    """
+
+    def __init__(self):
+        # Connect to db
+        self.con = psycopg2.connect(
+            host='DESKTOP-VSKLGP8',
+            database='postgres',
+            user='postgres',
+            password='postgres'
+        )
+        self.article_table = pd.DataFrame()
+
+    def read_db(self):
+        cur = self.con.cursor()
+
+        cur.execute("SELECT  full_date, hour, title, comp_sentiment FROM article_fact"
+                    " JOIN date_dim ON article_fact.dateid = date_dim.dateid"
+                    " JOIN time_dim ON article_fact.timeid = time_dim.timeid;")
+
+        rows = cur.fetchall()
+
+        self.article_table = pd.DataFrame(data=rows, columns=['date', 'hour', 'clean_title', 'compound'])
+
+        self.con.close()
+
+        return self.article_table
+
+    def insert_db(self, df):
+        cur = self.con.cursor()
+
+        for i in range(len(df)):
+            cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.date[i]}'")
+            dateid = cur.fetchall()
+
+            cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.hour[i]}'")
+            timeid = cur.fetchall()
+
+            cur.execute(
+                f"INSERT INTO article_fact1 (dateid, timeid, title, url, comp_sentiment) VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['clean_title'][i]}', 'null', {df['compound'][i]});")
+
+        self.con.commit()
+
+        self.con.close()
+
+
 def main():
     """
     Main function
@@ -558,6 +609,7 @@ def main():
 
     sentiment_analyzer = SentimentAnalyzer()
     trade_caller = TradeCalls()
+
     news_api_articles = news_api_streamer.stream_articles(query, yesterdays_date, todays_date)
     yahoo_articles = yahoo_article_streamer.get_the_news(query)
 
@@ -581,6 +633,9 @@ def main():
 
     all_headlines = recent_yahoo_articles[['publishedAt', 'clean_title']]
     all_headlines = all_headlines.append(news_api_df[['publishedAt', 'clean_title']])
+    all_headlines['publishedAt'] = pd.to_datetime(all_headlines['publishedAt'])
+
+    all_headlines = all_headlines[(all_headlines['publishedAt'] > datetime.now() - timedelta(hours=1))]
 
     scored_headlines = sentiment_analyzer.analyze_recent_headlines(all_headlines)
 
@@ -591,7 +646,7 @@ def main():
 
     high_headlines = high_headlines.drop(columns=['index'])
 
-    high_headlines.to_csv(f'.\{trading_symbol}datasets\{date}sentiment.csv', index=False)
+    high_headlines.to_csv(f'.\{trading_symbol}datasets\{date}sentiment.csv', index=False, mode='a')
     high_headlines.to_csv(f'.\{trading_symbol}datasets\overall_sentiment.csv', index=False, mode='a', header=False)
 
     high_headlines.to_csv(f'.\datasets\overall_sentiment.csv', index=False, mode='a', header=False)
