@@ -268,7 +268,7 @@ class DatabaseClient:
             timeid = cur.fetchall()
 
             cur.execute(
-                f"INSERT INTO article_fact1 (dateid, timeid, title, url, comp_sentiment) VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['clean_title'][i]}', 'null', {df['compound'][i]});")
+                f"INSERT INTO article_fact1 (dateid, timeid, title, url, comp_sentiment) VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['clean_title'][i]}', '{df['url'][i]}', {df['compound'][i]});")
 
         self.con.commit()
 
@@ -311,10 +311,21 @@ def main():
 
     all_headlines = recent_yahoo_articles[['publishedAt', 'clean_title']]
     all_headlines = all_headlines.append(news_api_df[['publishedAt', 'clean_title']])
-    all_headlines['publishedAt'] = pd.to_datetime(all_headlines['publishedAt'])
 
-    #database_client.insert_db(df)
-    print(all_headlines)
+    all_headlines['publishedAt'] = pd.to_datetime(all_headlines['publishedAt'])
+    all_headlines = all_headlines[(all_headlines['publishedAt'] < datetime.now() - timedelta(hours=1))]
+
+    scored_headlines = sentiment_analyzer.analyze_recent_headlines(all_headlines)
+
+    high_headlines = scored_headlines[(scored_headlines['compound'] > .5) | (scored_headlines['compound'] < -0.5)]
+    high_headlines = high_headlines.reset_index()
+
+    high_headlines['date'] = high_headlines['publishedAt'].dt.strftime('%d/%m/%Y')
+    high_headlines['hour'] = high_headlines['publishedAt'].dt.hour
+
+    high_headlines = high_headlines.drop(columns=['index', 'level_0'])
+
+    database_client.insert_db(high_headlines)
 
 
 if __name__ == "__main__":
