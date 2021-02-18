@@ -14,7 +14,7 @@ import argparse
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
-
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from newsapi import NewsApiClient
 
 
@@ -227,6 +227,142 @@ class ArticleCleaner():
         return recent_articles
 
 
+class SentimentAnalyzer():
+    """
+    Functionality for analyzing headlines sentiment
+    """
+
+    def __init__(self):
+        pass
+
+        # Add weighted words to lexicon
+        self.new_words = {
+            'crushes': 10,
+            'beats': 5,
+            'misses': -5,
+            'trouble': -10,
+            'falls': -100,
+            'slides': -50,
+            'slide': -50,
+            'record high': 15,
+            'low': -15,
+            'one week low': -30,
+            'worth more': 5,
+            'digital gold': 5,
+            'high': 15,
+            'cryptocurrency fund': 10,
+            'up': 5,
+            'soars': 70,
+            'rebound': 20,
+            'pullback': -40,
+            'slumps': -60,
+            'jumps': 50,
+            'record low': -100,
+            'soaring': 70,
+            'bearish': -50,
+            'bullish': 50,
+            'bulls': 10,
+            'bears': -10,
+            'hodl': 10,
+            'pulls back': -40,
+            'pulled back': -40,
+            'selloff': -70,
+            'retrace': -70,
+            'drop': -50,
+            'buying': 10,
+            'selling': -10,
+            'rally': 15,
+            'bounces': 20,
+            'testing support': -5,
+            'climb': 5,
+            'rise': 20,
+            'crashes': -100,
+            'crash': -100,
+            'downward': -30,
+            'plunges': -100,
+            'plunge': -80,
+            'cardano': 0,
+            'descends': -30,
+            'descend': -30,
+            'gain': 20,
+            'gains': 20,
+            'worst': -25,
+            'loss': -15,
+            'without risk': 10,
+            'tumbles': -50,
+            'jeopardy': -50,
+            'breakout': 10
+        }
+
+    def reading_dataset(self):
+        columnName = ['Headlines', 'Sentiment']
+        self.data.columns = columnName
+        self.data.head()
+
+        return self.data
+
+    def analyze_test_headlines(self):
+        """
+        A function to analyse test dataset and apply vader sentiment
+        :return analysed dataset
+        """
+        # Instantiate the sentiment intensity analyzer with the existing lexicon
+        vader = SentimentIntensityAnalyzer()
+
+        # Update the lexicon
+        vader.lexicon.update(self.new_words)
+
+        data = self.reading_dataset()
+
+        # Iterate through the headlines and get the polarity scores
+        scores = data['Headlines'].apply(vader.polarity_scores)
+
+        # Convert the list of dicts into a DataFrame
+        scores_df = pd.DataFrame.from_records(scores)
+
+        # Join the DataFrames
+        scored_news = data.join(scores_df)
+
+        scored_news['assigned_label'] = scored_news['Sentiment'].apply(
+            lambda Sentiment: 'pos' if Sentiment > 0 else 'neg')
+        scored_news['predicted_label'] = scored_news['compound'].apply(
+            lambda compound: 'pos' if compound >= 0 else 'neg')
+
+        return scored_news
+
+    def analyze_recent_headlines(self, data):
+        """
+        A function to analyse gathered dataset and apply vader sentiment
+        :return analysed dataset
+        """
+        scores_df = pd.DataFrame()
+        # Instantiate the sentiment intensity analyzer with the existing lexicon
+        vader = SentimentIntensityAnalyzer()
+
+        # Update the lexicon
+        vader.lexicon.update(self.new_words)
+
+        # Iterate through the headlines and get the polarity scores
+        # scores = data['clean_title'].apply(vader.polarity_scores)
+
+        scores_df['neg'] = [vader.polarity_scores(x)['neg'] for x in data['clean_title']]
+        scores_df['neu'] = [vader.polarity_scores(x)['neu'] for x in data['clean_title']]
+        scores_df['pos'] = [vader.polarity_scores(x)['pos'] for x in data['clean_title']]
+        scores_df['compound'] = [vader.polarity_scores(x)['compound'] for x in data['clean_title']]
+
+        # Convert the list of dicts into a DataFrame
+        # scores_df = pd.DataFrame.from_records(scores)
+
+        # Join the DataFrames
+        data = data.reset_index()
+        scored_news = data.merge(scores_df, left_index=True, right_index=True, how='inner')
+
+        scored_news['predicted_label'] = scored_news['compound'].apply(
+            lambda compound: 'pos' if compound > 0 else ('neu' if compound == 0 else 'neg'))
+
+        return scored_news
+
+
 class DatabaseClient:
     """
     Functionality for inserting and reading from the database
@@ -286,6 +422,7 @@ def main():
     news_api_streamer = NewsAPIArticleStreamer()
     news_api_cleaner = NewsAPIArticleCleaner()
 
+    sentiment_analyzer = SentimentAnalyzer()
     database_client = DatabaseClient()
 
     news_api_articles = news_api_streamer.stream_articles(query, yesterdays_date, todays_date)

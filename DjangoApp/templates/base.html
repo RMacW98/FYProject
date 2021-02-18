@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% load leaflet_tags %}
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
@@ -29,8 +28,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
-    {% leaflet_css %}
-    {% leaflet_js %}
     {% block extra_header %}
     {% endblock %}
 </head>

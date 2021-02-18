@@ -45,6 +45,8 @@ ALLOWED_HOSTS = [
     '.azure.awm.macwilliam.ie',
     '.ross.macwilliam.ie',
     'localhost',
+    '127.0.0.1',
+    '172.20.0.1',
 ]
 
 
@@ -60,9 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
     'crispy_forms',
-    'leaflet',
     'accounts',
     'pwa',
 ]
@@ -102,14 +102,15 @@ WSGI_APPLICATION = 'DjangoApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'gis',
-        'HOST': 'wmap_postgis',
-        'USER': 'docker',
-        'PASSWORD': 'docker',
-        }
+DATABASES={
+   'default':{
+      'ENGINE':'django.db.backends.postgresql_psycopg2',
+      'NAME':'postgres',
+      'USER':'postgres',
+      'PASSWORD':'postgres',
+      'HOST':'localhost',
+      'PORT':'5432',
+   }
 }
 
 
@@ -175,30 +176,6 @@ LEAFLET_CONFIG = {
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-
-if socket.gethostname() == "DESKTOP-VSKLGP8":
-    DATABASES["default"]["HOST"] = "localhost"
-    DATABASES["default"]["PORT"] = docker_config.POSTGIS_PORT
-else:
-    DATABASES["default"]["HOST"] = f"{docker_config.PROJECT_NAME}-postgis"
-    DATABASES["default"]["PORT"] = 5432
-
-# Set DEPLOY_SECURE to True only for LIVE deployment
-if docker_config.DEPLOY_SECURE:
-    DEBUG = False
-    TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.azure.awm.macwilliam.ie',
-                     '.ross.macwilliam.ie',
-                     'localhost',
-                     ]
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-else:
-    DEBUG = True
-    TEMPLATES[0]["OPTIONS"]["debug"] = True
-    ALLOWED_HOSTS = ['*', ]
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
 
 
 PWA_APP_NAME = 'DjangoApp'

@@ -10,90 +10,52 @@
 
 
 {% block extra_header %}
-  <style>
+	<style>
+
       #chart-container {
           text-align: center;
       }
+
+      canvas {
+          position: absolute;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+
+      }
   </style>
 
-	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+<canvas id="myChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<canvas id="chartjs-0" class="chartjs" width="415" height="207" style="display: block; width: 415px; height: 207px;"></canvas>
 
-    <script type="text/javascript">
-        var url = 'http://127.0.0.1:8000/rest/choice/'
-        var choices;
-
-        $.ajax({
-            url: url,
-            success: function(data) {
-                choices = data;
-
-                //utilize your callback function
-                doSomething(choices);
-                }
-            });
-
-        //this is your callback function
-        function doSomething(param) {
-            //do something with your parameter
-
-            var total_votes = param[0].votes + param[1].votes;
-            var sentiment_score = param[1].votes/total_votes * 100;
-
-            console.log(param);
-            console.log(sentiment_score);
-
-            FusionCharts.ready(function(){
-                var chartObj = new FusionCharts({
-                type: 'angulargauge',
-                renderAt: 'chart-container',
-                width: '450',
-                height: '300',
-                dataFormat: 'json',
-                dataSource: {
-                             "chart": {
-                                "caption": "Crypto Market Sentiment",
-                                "subcaption": "Last week",
-                                "lowerLimit": "0",
-                                "upperLimit": "100",
-                                "lowerLimitDisplay": "Bad",
-                                "upperLimitDisplay": "Good",
-                                "showValue": "1",
-                                "valueBelowPivot": "1",
-                                "theme": "fusion"
-                             },
-                             "colorRange": {
-                                "color": [
-                                   {
-                                      "minValue": "0",
-                                      "maxValue": "50",
-                                      "code": "#e44a00"
-                                   },
-                                   {
-                                      "minValue": "50",
-                                      "maxValue": "75",
-                                      "code": "#f8bd19"
-                                   },
-                                   {
-                                      "minValue": "75",
-                                      "maxValue": "100",
-                                      "code": "#6baa01"
-                                   }
-                                ]
-                             },
-                             "dials": {
-                                "dial": [
-                                   {
-                                      "value": sentiment_score
-                                   }
-                                ]
-                             }
-                          }
-            }
-            );
-                chartObj.render();
-            });
-        }
+	<script>
+      new Chart(
+              document.getElementById(
+                      "chartjs-0"
+              ),
+              {
+                "type":"line",
+                "data":{
+                  "labels":[
+                          "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July"
+                  ],
+                  "datasets":
+                          [{
+                  "label":"My First Dataset",
+                            "data":[65,59,80,81,56,55,40],
+                            "fill":false,
+                            "borderColor":"rgb(75, 192, 192)",
+                            "lineTension":0.1
+                }]},
+                "options":{}});
     </script>
 
 
