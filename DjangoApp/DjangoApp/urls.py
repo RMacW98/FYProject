@@ -8,6 +8,10 @@ from rest_framework.schemas import get_schema_view
 router = routers.DefaultRouter()
 router.register(r'users', rest_views.UserViewSet)
 router.register(r'choice', rest_views.ChoiceViewSet)
+router.register(r'sentiment', rest_views.SentimentViewSet)
+router.register(r'current_sentiment', rest_views.CurrentSentimentViewSet)
+router.register(r'moving_average_sentiment', rest_views.MASentimentViewSet)
+router.register(r'sentiment_view', rest_views.SentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

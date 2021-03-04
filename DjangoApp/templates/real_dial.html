@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
 
     <script type="text/javascript">
-        var url = 'http://127.0.0.1:8000/rest/choice/'
+        var url = 'http://127.0.0.1:8000/rest/current_sentiment/'
         var choices;
 
         $.ajax({
@@ -35,10 +35,9 @@
 
         //this is your callback function
         function doSomething(param) {
+            console.log(param[0]);
             //do something with your parameter
-
-            var total_votes = param[0].votes + param[1].votes;
-            var sentiment_score = param[1].votes/total_votes * 100;
+            var sentiment_score = param[0].ema;
 
             console.log(param);
             console.log(sentiment_score);
@@ -47,36 +46,36 @@
                 var chartObj = new FusionCharts({
                 type: 'angulargauge',
                 renderAt: 'chart-container',
-                width: '450',
-                height: '300',
+                width: '50%',
+                height: '50%',
                 dataFormat: 'json',
                 dataSource: {
                              "chart": {
                                 "caption": "Crypto Market Sentiment",
                                 "subcaption": "Last week",
-                                "lowerLimit": "0",
-                                "upperLimit": "100",
+                                "lowerLimit": "-1",
+                                "upperLimit": "1",
                                 "lowerLimitDisplay": "Bad",
                                 "upperLimitDisplay": "Good",
-                                "showValue": "1",
+                                "showValue": "-.5, 1",
                                 "valueBelowPivot": "1",
                                 "theme": "fusion"
                              },
                              "colorRange": {
                                 "color": [
                                    {
-                                      "minValue": "0",
-                                      "maxValue": "50",
+                                      "minValue": "-1",
+                                      "maxValue": "0",
                                       "code": "#e44a00"
                                    },
                                    {
-                                      "minValue": "50",
-                                      "maxValue": "75",
+                                      "minValue": "0",
+                                      "maxValue": ".5",
                                       "code": "#f8bd19"
                                    },
                                    {
-                                      "minValue": "75",
-                                      "maxValue": "100",
+                                      "minValue": ".5",
+                                      "maxValue": "1",
                                       "code": "#6baa01"
                                    }
                                 ]

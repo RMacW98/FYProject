@@ -177,9 +177,35 @@ LEAFLET_CONFIG = {
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+if socket.gethostname() == "DESKTOP-VSKLGP8":
+    DATABASES["default"]["HOST"] = "localhost"
+    DATABASES["default"]["PORT"] = 5432
+else:
+    DATABASES["default"]["HOST"] = f"{docker_config.PROJECT_NAME}"
+    DATABASES["default"]["PORT"] = 5432
 
-PWA_APP_NAME = 'DjangoApp'
-PWA_APP_DESCRIPTION = "My geodjango app for 4th year"
+# Set DEPLOY_SECURE to True only for LIVE deployment
+if docker_config.DEPLOY_SECURE:
+    DEBUG = False
+    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    ALLOWED_HOSTS = ['.azure.awm.macwilliam.ie',
+                     '.ross.macwilliam.ie',
+                     'localhost',
+                     ]
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    DEBUG = True
+    TEMPLATES[0]["OPTIONS"]["debug"] = True
+    ALLOWED_HOSTS = ['*', ]
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+
+
+
+PWA_APP_NAME = 'CryptoCaller'
+PWA_APP_DESCRIPTION = "An application that aids investors and speculators in " \
+                      "the crypto space on the current news sentiment"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'

@@ -1,3 +1,2 @@
-POSTGIS_PORT = 59092
-PROJECT_NAME = 'wmap'
+PROJECT_NAME = 'fyp_postgresql'
 DEPLOY_SECURE = False

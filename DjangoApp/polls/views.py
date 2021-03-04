@@ -6,7 +6,7 @@ from django.views import generic
 from datetime import timezone
 from django.core import serializers
 
-from .models import Choice, Question
+from .models import Choice, Question, SentimentFact
 
 
 class IndexView(generic.ListView):
