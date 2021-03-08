@@ -42,15 +42,15 @@ class DatabaseClient:
         cur = self.con.cursor()
 
         for i in range(len(df)):
-            cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid[i]}'")
+            cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid}'")
             dateid = cur.fetchall()
 
-            cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.timeid[i]}'")
+            cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.timeid}'")
             timeid = cur.fetchall()
 
             cur.execute(
                 "INSERT INTO ma_sentiment_dim (dateid, timeid, trading_symbol, comp_sentiment, sma, ema)"
-                f" VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol'][i]}', {df['compound'][i]}, {df['SMA'][i]}, {df['EWM'][i]});")
+                f" VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol']}', {df['compound']}, {df['SMA']}, {df['EWM']});")
 
         self.con.commit()
 
@@ -104,4 +104,4 @@ if __name__ == "__main__":
     headlines_df = sentiment_processor.calculate_moving_averages(df)
 
     # Insert last value in the dataframe to database
-    database_client.insert_db(overall_headlines[-1])
+    database_client.insert_db(headlines_df.iloc[-1])
