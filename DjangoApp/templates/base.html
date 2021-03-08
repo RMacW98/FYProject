@@ -39,26 +39,52 @@
 <body>
 <div >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
         <a class="navbar-brand" >
             <img src="{% static 'images/cryptoicon.jpeg' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
             CryptoCaller
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    {% if user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'polls:dial' %}">Dial</a>
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% else %}
-                        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        <a class="nav-link" href="{% url 'login' %}">Sign In</a>
-                    {% endif %}
-            </div>
-        </div>
-    </nav>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+        {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'polls:dial' %}">Charts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'feed:home' %}">News</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+        {% else %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+      </li>
+        {% endif %}
+    </ul>
+      {% if user.is_authenticated %}
+    <form
+      class="form-inline my-2 my-lg-0"
+      action="{% url 'feed:search_articles' %}"
+      method="get">
+      <input name="p" type="text" placeholder="Search posts.." />
+      <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">
+        Search
+      </button>
+    </form>
+      {% endif %}
+  </div>
+</nav>
+
 </div>
 <div id="body_div"
      style="padding: 1rem;

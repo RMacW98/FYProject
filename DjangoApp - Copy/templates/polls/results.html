@@ -1,0 +1,44 @@
+<title>Results</title>
+
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block head_title %}
+  {% trans "Map Page" %}
+{% endblock %}
+
+
+{% block extra_header %}<style>#map {width: 20vw;height: 10vh;}</style>{% endblock %}
+
+{% block body_content %}
+
+{% if user.is_authenticated %}
+    <div style="text-align: center">
+        <h1>{{ question.question_text }}</h1>
+
+        <ul class="list-group" style="width: 50%; margin: auto">
+        {% for choice in question.choice_set.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ choice.choice_text }}
+                <span class="badge badge-primary badge-pill">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    </div>
+
+{% else %}
+
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <form>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </form>
+
+{% endif %}
+
+{% endblock %}
+

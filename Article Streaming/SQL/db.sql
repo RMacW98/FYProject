@@ -63,6 +63,13 @@ CREATE TABLE Sentiment_Fact (
 	CONSTRAINT FK_dimdate_sent FOREIGN KEY (dateID) REFERENCES Date_DIM(dateID)
 );
 
+CREATE TABLE news_articles (
+	desc varchar(500),
+	news varchar(500),
+	img varchar(500),
+	url varchar(500),
+);
+
 CREATE TABLE MA_sentiment_dim (
 	id serial primary key,
 	dateID int,
@@ -81,6 +88,7 @@ SELECT  dateid, timeid, trading_symbol, AVG(comp_sentiment)::numeric(5,4) AS "co
 GROUP BY (dateid, timeid, trading_symbol)
 ORDER BY (dateid, timeid);
 
+------ Not necessary --------------
 DROP TABLE ma_tmp;
 CREATE TABLE ma_tmp AS SELECT * FROM ma_view;
 
@@ -94,6 +102,7 @@ UPDATE ma_tmp
 SET id = nextval('ma_seq');
 
 CREATE TABLE ma_sentiment_dim AS SELECT * FROM ma_tmp;
+-------------------------------------
 
 
 CREATE OR REPLACE VIEW sentiment_score AS

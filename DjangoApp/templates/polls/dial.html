@@ -22,7 +22,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 
 	<script>
-      var url = 'http://127.0.0.1:8000/rest/sentiment_view/'
+      var url = 'https://azure.awm.macwilliam.ie/rest/sentiment_view/'
         var choices;
 
         $.ajax({
@@ -41,8 +41,6 @@
             //do something with your parameter
             var time_stamp = data.map(item => item.timestamp);
             var sent = data.map(item => item.comp_sentiment);
-
-            console.log(time_stamp);
 
             var ctx = document.getElementById("chartjs-0").getContext("2d");
 
@@ -79,6 +77,11 @@
                             type: 'time',
                             distribution: 'linear'
                         }]
+                    },
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
                     }
                 }
             });

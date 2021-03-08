@@ -200,7 +200,7 @@ class ArticleCleaner():
         return article, outlet
 
     def get_recent_articles(self, all_articles):
-        recent_articles = pd.DataFrame()
+        recent_articles = pd.DataFrame(columns=['title', 'outlet', 'uploaded', 'url', 'clean_title'])
 
         for index, row in all_articles.iterrows():
             if 'minute' in row.uploaded:
@@ -211,7 +211,7 @@ class ArticleCleaner():
 
         time = []
         hours = recent_articles['uploaded'].str.split(' ')
-        df = pd.DataFrame(hours.values.tolist(), index=hours.index)
+        df = pd.DataFrame(hours.values.tolist(), index=hours.index,columns=['num', 'timeframe', 'ago'])
         hours_ago = df[0]
 
         for index, hours in hours_ago.items():

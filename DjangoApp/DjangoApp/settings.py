@@ -42,6 +42,8 @@ SECRET_KEY = '4&voplijo&q^8ztkle0f(0l00e9z@$hv@=35#v_ul3uwx5^%0*'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '.cryptocaller.ie',
+    '.cryptocaller.co.uk',
     '.azure.awm.macwilliam.ie',
     '.ross.macwilliam.ie',
     'localhost',
@@ -54,6 +56,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'rest_framework',
+    'corsheaders',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,9 +68,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'accounts',
     'pwa',
+    'newsApp',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -79,6 +84,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'DjangoApp.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
@@ -151,6 +158,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -205,7 +213,7 @@ else:
 
 PWA_APP_NAME = 'CryptoCaller'
 PWA_APP_DESCRIPTION = "An application that aids investors and speculators in " \
-                      "the crypto space on the current news sentiment"
+                      "the crypto space on the current feed sentiment"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'

@@ -1,0 +1,28 @@
+  <title>News Feed</title>
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block head_title %}
+{% endblock %}
+
+<html lang="en">
+{% block body_content %}
+<!-- Main -->
+<div class="container" >
+  {% for hl, des, img, url in mylist %}
+  <div class="card border-primary mb-3">
+    <img src="{{ img }}" alt="image">
+  </div>
+  <div class="card border-primary mb-3">
+    <h4><span class="badge badge-primary">Headline:</span></h4>
+    <a href="{{ url }}"><h5>{{ hl }}{{ value|linebreaks }}</h5></a>
+    <h4> <span class="badge badge-success">Description:</span></h4>
+    <h5>{{ des }}{{ value|linebreaks }}</h5>
+  </div>
+  {% endfor %}
+
+</div>
+  {% endblock %}
+</html>

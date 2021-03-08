@@ -1,0 +1,118 @@
+  <title>News Article</title>
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block body_content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+            <a href="{{article.url}}"><b>{{ article.outlet }}</b></a>
+          <br /><small class="text-muted"
+            >Posted on {{ article.date_posted }}</small
+          >
+          <br /><br />
+          <p class="card-text text-dark">{{ article.description }}</p>
+        </div>
+        <a href="{{ article.pic }}"
+          ><img class="card-img-top" src="{{ article.pic }}" alt=""
+        /></a>
+        <div class="card-footer">
+          <button class="btn btn-white mr-3 like" id="{{ article.id }}">
+            {% if is_liked %}
+            <a
+              href="{% url 'feed:article-like' %}"
+              style="color: red"
+              id="unlikebtn{{ article.id }}"
+            >
+              Unlike | {{article.likes.count}}</a>
+            {% else %}
+            <a
+              href="{% url 'feed:article-like' %}"
+              style="color: green"
+              id="likebtn{{ article.id }}"
+            >
+              Like | {{article.likes.count}}</a>
+            {% endif %}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <h4>Comments</h4>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <form class="form-signin" method="POST" id="article-form">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <br />
+              {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+              <button
+                class="btn btn-lg btn-primary btn-block text-uppercase"
+                type="submit"
+              >
+                Comment</button><br />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      {% if article.details.all %}
+      <div class="card card-signin my-5">
+        {% for detail in article.details.all %}
+        <div class="card-body">
+          <a
+            class="text-dark"
+            href="{{ detail.username.profile.get_absolute_url }}"
+            ><b>{{ detail.username }}</b></a
+          >
+          <br /><small>{{ detail.comment_date }}</small><br /><br />
+          <p class="card-text text-dark">{{ detail.comment }}</p>
+        </div>
+        <hr class="my-1" />
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>No comments to show!</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% block jsfiles %}
+<script>
+  $(".like").click(function (e) {
+    var id = this.id;
+    var href = $(".like").find("a").attr("href");
+    e.preventDefault();
+    $.ajax({
+      url: href,
+      data: {
+        likeId: id,
+      },
+      success: function (response) {
+        if (response.liked) {
+          $("#unlikebtn" + id).html("Unlike");
+          $("#unlikebtn" + id).css("color", "red");
+        } else {
+          $("#likebtn" + id).html("Like");
+          $("#likebtn" + id).css("color", "green");
+        }
+        location.reload(true);
+      },
+    });
+  });
+</script>
+{% endblock jsfiles %}
+{% endblock body_content %}

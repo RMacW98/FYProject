@@ -1,0 +1,42 @@
+<title>Detail</title>
+
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block head_title %}
+  {% trans "Map Page" %}
+{% endblock %}
+
+
+{% block extra_header %}<style>#map {width: 20vw;height: 10vh;}</style>{% endblock %}
+
+{% block body_content %}
+
+{% if user.is_authenticated %}
+    <h1>{{ question.question_text }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+    </form>
+
+{% else %}
+
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <form>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </form>
+
+{% endif %}
+
+{% endblock %}
+

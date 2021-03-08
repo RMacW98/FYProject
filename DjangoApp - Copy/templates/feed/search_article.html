@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block body_content %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% if not articles %}
+      <br />
+      <h2><i>No posts match the tag provided!</i></h2>
+      {% endif %} {% for article in articles %}
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <br /><small class="text-muted"
+            >Posted on {{ article.date_posted }}</small
+          >
+          <br /><br />
+          <p class="card-text text-dark">{{ article.description }}</p>
+        </div>
+        <a href="{% url 'feed:article-detail' article.id %}"
+          ><img class="card-img-top" src="{{ article.pic }}" alt=""
+        /></a>
+        <div class="card-footer">
+          <button class="btn btn-white mr-3 like" id="{{ article.id }}">
+            {% if article in liked_article %}
+            <a
+              href="{% url 'feed:article-like' %}"
+              style="color: red"
+              id="unlikebtn{{ article.id }}"
+            >
+              Unlike</a>
+            | {{article.likes.count}} {% else %}
+            <a
+              href="{% url 'feed:article-like' %}"
+              style="color: green"
+              id="likebtn{{ article.id }}"
+            >
+              Like</a>
+            | {{article.likes.count}} {% endif %}
+          </button>
+          <a class="btn btn-outline-info" href="{% url 'feed:article-detail' article.id %}"
+            >Comments | {{ article.details.count }}</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block jsfiles %}
+<script>
+  $(".like").click(function (e) {
+    var id = this.id;
+    var href = $(".like").find("a").attr("href");
+    e.preventDefault();
+
+    $.ajax({
+      url: href,
+      data: {
+        likeId: id,
+      },
+      success: function (response) {
+        if (response.liked) {
+          $("#unlikebtn" + id).html("Unlike");
+          $("#unlikebtn" + id).css("color", "red");
+        } else {
+          $("#likebtn" + id).html("Like");
+          $("#likebtn" + id).css("color", "green");
+        }
+      },
+    });
+  });
+</script>
+{% endblock jsfiles %}
+{% endblock body_content %}
