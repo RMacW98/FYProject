@@ -67,7 +67,7 @@ def article_detail(request, pk):
             data.article = article
             data.username = user
             data.save()
-            return redirect('article-detail', pk=pk)
+            return redirect('feed:article-detail', pk=pk)
     else:
         form = NewCommentForm()
     return render(request, 'feed/article_detail.html', {'article':article, 'is_liked':is_liked, 'form':form})

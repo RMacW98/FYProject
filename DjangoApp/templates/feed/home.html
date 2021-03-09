@@ -12,7 +12,7 @@
       {% for article in articles %}
       <div class="card card-signin my-5">
         <div class="card-body">
-          <a href="{{article.url}}"><b>{{ article.outlet }}</b></a>
+          <a href="{% url 'feed:article-detail' article.id %}"><b>{{ article.outlet }}</b></a>
           <br /><small class="text-muted"
             >Posted on {{ article.date_posted }}</small
           >
