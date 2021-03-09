@@ -581,18 +581,17 @@ class DatabaseClient:
     def insert_sentiment_db(self, df):
         cur = self.con.cursor()
 
-        for i in range(len(df)):
-            cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid[i]}'")
-            dateid = cur.fetchall()
+        cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid}'")
+        dateid = cur.fetchall()
 
-            cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.timeid[i]}'")
-            timeid = cur.fetchall()
+        cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.timeid}'")
+        timeid = cur.fetchall()
 
-            cur.execute("SELECT max(id)+1 FROM sentiment_fact;")
-            id = cur.fetchall()
+        cur.execute("SELECT max(id)+1 FROM sentiment_fact;")
+        id = cur.fetchall()
 
-            cur.execute(
-                f"INSERT INTO sentiment_fact (id, dateid, timeid, trading_symbol, comp_sentiment) VALUES ({id[0][0]}, {dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol'][i]}', {df['final_scores'][i]});")
+        cur.execute(
+            f"INSERT INTO sentiment_fact (id, dateid, timeid, trading_symbol, comp_sentiment) VALUES ({id[0][0]}, {dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol']}', {df['final_scores']});")
 
         self.con.commit()
 
@@ -662,7 +661,7 @@ def main():
     calculated_df['dateid'] = calculated_df['Date'].dt.strftime('%d/%m/%Y')
     calculated_df['timeid'] = calculated_df['Date'].dt.hour
 
-    database_client.insert_sentiment_db(calculated_df)
+    database_client.insert_sentiment_db(calculated_df.iloc[-1])
 
     # sentiment_Buy, sentiment_Sell = trade_caller.make_trade_call(df)
 

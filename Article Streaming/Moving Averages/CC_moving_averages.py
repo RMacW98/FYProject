@@ -41,16 +41,15 @@ class DatabaseClient:
     def insert_db(self, df):
         cur = self.con.cursor()
 
-        for i in range(len(df)):
-            cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid}'")
-            dateid = cur.fetchall()
+        cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid}'")
+        dateid = cur.fetchall()
 
-            cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.timeid}'")
-            timeid = cur.fetchall()
+        cur.execute(f"SELECT timeid FROM time_dim WHERE hour = '{df.timeid}'")
+        timeid = cur.fetchall()
 
-            cur.execute(
-                "INSERT INTO ma_sentiment_dim (dateid, timeid, trading_symbol, comp_sentiment, sma, ema)"
-                f" VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol']}', {df['compound']}, {df['SMA']}, {df['EWM']});")
+        cur.execute(
+            "INSERT INTO ma_sentiment_dim (dateid, timeid, trading_symbol, comp_sentiment, sma, ema)"
+            f" VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol']}', {df['compound']}, {df['SMA']}, {df['EWM']});")
 
         self.con.commit()
 
@@ -98,10 +97,11 @@ if __name__ == "__main__":
 
     # Append current hour to end of dataframe
     end = datetime.now()
-    df = df.append({'dateid':end.strftime('%d/%m/%Y'), 'timeid':end.hour, 'trading_symbol':'BTC', 'compound':None}, ignore_index=True)
+    df = df.append({'dateid':end.strftime('%d/%m/%Y'), 'timeid':end.hour, 'trading_symbol':'BTC', 'compound':df['compound'].iloc[-1]}, ignore_index=True)
 
     sentiment_processor = SentimentProcessor()
     headlines_df = sentiment_processor.calculate_moving_averages(df)
 
     # Insert last value in the dataframe to database
     database_client.insert_db(headlines_df.iloc[-1])
+    #print(headlines_df.iloc[-1])
