@@ -136,32 +136,43 @@ CREATE VIEW ma_tmp AS
 SELECT dateid, timeid, trading_symbol, avg(comp_sentiment)::numeric(5,4) AS "comp_sentiment", avg(sma)::numeric(5,4) AS "sma", avg(ema)::numeric(5,4) AS "ema" 
 FROM ma_sentiment_dim
 GROUP BY (timeid, dateid, trading_symbol)
-ORDER BY (timeid, dateid);
+ORDER BY (dateid, timeid);
 
 DROP TABLE ma_temp_dim;
-CREATE TABLE ma_temp_dim AS SELECT * FROM ma_tmp ORDER BY (dateid, timeid);
+CREATE TABLE ma_temp_dim AS SELECT dateid, timeid, trading_symbol, comp_sentiment, sma, ema FROM ma_tmp ORDER BY (dateid, timeid);
+
+
+DROP TABLE ma_sentiment_dim CASCADE;
+DROP SEQUENCE ma_sent_seq;
+CREATE SEQUENCE ma_sent_seq START 1;
+CREATE TABLE ma_sentiment_dim AS SELECT * FROM ma_temp_dim;
 
 DROP SEQUENCE ma_sent_seq;
 CREATE SEQUENCE ma_sent_seq START 1;
-SELECT nextval('ma_sent_seq');
 
-ALTER TABLE ma_temp_dim
+ALTER TABLE ma_sentiment_dim
 ADD ID int;
-
-UPDATE ma_temp_dim
+ALTER TABLE ma_sentiment_dim ALTER COLUMN id SET DEFAULT nextval('ma_sent_seq');
+UPDATE ma_sentiment_dim
 SET id = nextval('ma_sent_seq');
-
-DROP TABLE ma_sentiment_dim CASCADE;
-CREATE TABLE ma_sentiment_dim AS SELECT * FROM ma_temp_dim;
-
 ----- Create View --------
-CREATE SEQUENCE sent_view_seq START 1;
-SELECT nextval('sent_view_seq')
-
 
 DROP VIEW sent_view;
 CREATE VIEW sent_view AS
 SELECT  id AS "sentid", (TO_DATE(full_date, 'DD/MM/YYY')||' '||time)::timestamp, sma AS "comp_sentiment" FROM ma_sentiment_dim
 JOIN date_dim ON date_dim.dateid = ma_sentiment_dim.dateid
 JOIN time_dim ON time_dim.timeid = ma_sentiment_dim.timeid
-ORDER BY (timeid, dateid);
+ORDER BY (timestamp);
+
+
+CREATE VIEW sent_values AS
+SELECT  id AS "sentid", (TO_DATE(full_date, 'DD/MM/YYY')||' '||time)::timestamp, comp_sentiment, sma, ema FROM ma_sentiment_dim
+JOIN date_dim ON date_dim.dateid = ma_sentiment_dim.dateid
+JOIN time_dim ON time_dim.timeid = ma_sentiment_dim.timeid
+ORDER BY (timestamp);
+
+
+----- Fixing ma_dim -----------
+DELETE FROM ma_sentiment_dim WHERE dateid > 66 AND timeid > 720;
+
+CREATE TABLE tmp_ma AS SELECT dateid, timeid, trading_symbol, comp_sentiment, sma, ema FROM ma_sentiment_dim;

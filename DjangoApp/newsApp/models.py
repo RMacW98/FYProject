@@ -5,10 +5,10 @@ from django.utils import timezone
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=550, blank=True)
     description = models.CharField(max_length=500, blank=True)
-    pic = models.CharField(max_length=255, blank=True)
-    url = models.CharField(max_length=255, blank=True)
+    pic = models.CharField(max_length=500, blank=True)
+    url = models.CharField(max_length=500, blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     outlet = models.CharField(max_length=255, blank=True)
 

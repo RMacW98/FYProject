@@ -62,9 +62,12 @@ class DatabaseClient:
         cur = self.con.cursor()
 
         for i in range(len(df)):
+            cur.execute('SELECT max(id)+1 FROM "newsApp_article";')
+            id = cur.fetchall()
+
             cur.execute(
-                'INSERT INTO "newsApp_article" (title, description, pic, url, date_posted, outlet)'
-                f" VALUES ('{df['title'][i]}','{df['desc'][i]}','{df['img'][i]}','{df['url'][i]}','{df['publishedAt'][i]}'::timestamp,'{df['outlet'][i]}');")
+                'INSERT INTO "newsApp_article" (id, title, description, pic, url, date_posted, outlet)'
+                f" VALUES ({id[0][0]}, '{df['title'][i]}','{df['desc'][i]}','{df['img'][i]}','{df['url'][i]}','{df['publishedAt'][i]}'::timestamp,'{df['outlet'][i]}');")
 
         self.con.commit()
 
