@@ -182,8 +182,8 @@ LEAFLET_CONFIG = {
     'OPACITY': 0.5,
 }
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'feed:home'
+LOGOUT_REDIRECT_URL = 'feed:home'
 
 if socket.gethostname() == "DESKTOP-VSKLGP8":
     DATABASES["default"]["HOST"] = "localhost"

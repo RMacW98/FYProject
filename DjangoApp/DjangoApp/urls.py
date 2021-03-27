@@ -16,11 +16,11 @@ router.register(r'sentiment_view', rest_views.SentViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('polls.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('polls/', include('polls.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('feed/', include('newsApp.urls')),
-    path('', TemplateView.as_view(template_name='polls.html'), name='home'),
     path('', include('pwa.urls')),
     path('rest/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

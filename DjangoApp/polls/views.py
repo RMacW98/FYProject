@@ -10,7 +10,7 @@ from .models import Choice, Question, SentimentFact
 
 
 class IndexView(generic.ListView):
-    template_name = 'polls.html'
+    template_name = 'polls/polls.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):

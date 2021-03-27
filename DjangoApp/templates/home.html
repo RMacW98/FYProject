@@ -1,21 +1,18 @@
-<title>CryptoCaller</title>
-
+  <title>News Feed</title>
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_filters %}
-{% block body_content %}
-{% block content %}
-<div class="container">
+
+  {% block body_content %}
+  <div class="container">
   <div class="row">
     <div class="col-md-8">
-      {% if not articles %}
-      <br />
-      <h2><i>No posts match the tag provided!</i></h2>
-      {% endif %} {% for article in articles %}
+      {% for article in articles %}
       <div class="card card-signin my-5">
         <div class="card-body">
+          <a href="{% url 'feed:article-detail' article.id %}"><b>{{ article.outlet }}</b></a>
           <br /><small class="text-muted"
             >Posted on {{ article.date_posted }}</small
           >
@@ -25,23 +22,27 @@
         <a href="{% url 'feed:article-detail' article.id %}"
           ><img class="card-img-top" src="{{ article.pic }}" alt=""
         /></a>
+        {% if article.tags %}
+        <br />
+        <p class="text-danger ml-3">
+          <b>Tags: <i>{{ article.tags }}</i></b>
+        </p>
+        {% endif %}
         <div class="card-footer">
           <button class="btn btn-white mr-3 like" id="{{ article.id }}">
             {% if article in liked_article %}
-            <a
-              href="{% url 'feed:article-like' %}"
-              style="color: red"
-              id="unlikebtn{{ article.id }}"
-            >
-              Unlike</a>
-            | {{article.likes.count}} {% else %}
-            <a
-              href="{% url 'feed:article-like' %}"
-              style="color: green"
-              id="likebtn{{ article.id }}"
-            >
-              Like</a>
-            | {{article.likes.count}} {% endif %}
+              <a
+                href="{% url 'feed:article-like' %}"
+                style="color: red"
+                id="unlikebtn{{ article.id }}"
+              >Unlike</a> | {{article.likes.count}}
+            {% else %}
+              <a
+                href="{% url 'feed:article-like' %}"
+                style="color: green"
+                id="likebtn{{ article.id }}"
+              >Like </a> | {{article.likes.count}}
+            {% endif %}
           </button>
           <a class="btn btn-outline-info" href="{% url 'feed:article-detail' article.id %}"
             >Comments | {{ article.details.count }}</a>
@@ -51,13 +52,13 @@
     </div>
   </div>
 </div>
-{% endblock content %} {% block jsfiles %}
+
+  {% block jsfiles %}
 <script>
   $(".like").click(function (e) {
     var id = this.id;
     var href = $(".like").find("a").attr("href");
     e.preventDefault();
-
     $.ajax({
       url: href,
       data: {
@@ -71,9 +72,11 @@
           $("#likebtn" + id).html("Like");
           $("#likebtn" + id).css("color", "green");
         }
+        location.reload(true);
       },
     });
   });
 </script>
 {% endblock jsfiles %}
-{% endblock body_content %}
+
+{% endblock %}
