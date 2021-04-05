@@ -93,13 +93,17 @@ Below are the foll
    ```sh
    git clone https://github.com/RMacW98/FYProject.git
    ```
-3. Install required pip packages [here](https://github.com/RMacW98/FYProject/blob/master/DjangoApp/requirements.txt)_
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
+2. Install required pip packages [here](https://github.com/RMacW98/FYProject/blob/master/DjangoApp/requirements.txt)
+3. Setup postgres database on docker container
+3. Run command in python console to migrate database
+	```python
+	python manage.py makemigrations
+	python manage.py migrate
    ```
-
-
+4. Finally runserver
+	```python
+	python manage.py runserver
+   ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
