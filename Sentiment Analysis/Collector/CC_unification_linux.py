@@ -592,7 +592,8 @@ class DatabaseClient:
         id = cur.fetchall()
 
         cur.execute(
-            f"INSERT INTO sentiment_fact (id, dateid, timeid, trading_symbol, comp_sentiment) VALUES ({id[0][0]}, {dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol']}', {df['final_scores']});")
+            f"INSERT INTO sentiment_fact (id, dateid, timeid, trading_symbol, comp_sentiment) VALUES"
+            f" ({id[0][0]}, {dateid[0][0]}, {timeid[0][0]}, '{df['trading_symbol']}', {df['final_scores']});")
 
         self.con.commit()
 
