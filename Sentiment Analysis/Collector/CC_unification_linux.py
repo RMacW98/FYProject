@@ -70,6 +70,13 @@ class NewsAPIArticleStreamer():
         self.news_authenticator = NewsAuthenticator()
 
     def stream_articles(self, query, from_param, to):
+        """
+        Function to return articles from News API
+        :param query:
+        :param from_param:
+        :param to:
+        :return:
+        """
         # This handles Twitter authetification and the connection to News API
         newsapi = self.news_authenticator.authenticate_news_api()
 
@@ -194,7 +201,7 @@ class ArticleCleaner():
 
     def clean_article(self, article):
         """
-        Clean dataframe of all 'dirty' grammar
+        Clean DataFrame of all 'dirty' grammar
         :param article:
         :return article:
         """
@@ -208,6 +215,11 @@ class ArticleCleaner():
         return article, outlet
 
     def get_recent_articles(self, all_articles):
+        """
+        Function to only store articles uploaded in the last hour
+        :param all_articles:
+        :return: recent_articles
+        """
         recent_articles = pd.DataFrame()
 
         for index, row in all_articles.iterrows():
@@ -340,7 +352,8 @@ class SentimentAnalyzer:
     def analyze_recent_headlines(self, data):
         """
         A function to analyse gathered dataset and apply vader sentiment
-        :return analysed dataset
+        :param: data
+        :return: scored_news
         """
         scores_df = pd.DataFrame()
         # Instantiate the sentiment intensity analyzer with the existing lexicon
@@ -380,19 +393,28 @@ class ShrimpyAuthenticator:
         self.secret_key = '6991cf4c9b518293429db0df6085d1731074bed8abccd7f0279a52fac5b0c1a8a2f6d28e11a50fbb1c6575d1407e637f9ad7c73fbddfa87c5d418fd58971f829'
 
     def authenticate_shrimpy(self):
+        """
+        Function to authenticate shrimpy API
+        :return: client
+        """
+
         # create the client
         client = shrimpy.ShrimpyApiClient(self.public_key, self.secret_key)
         return client
 
 class PriceStreamer:
     """
-    Functionality for constantly streaming BTC price (Legacy function)
+    Functionality for collecting cryptocurrency price via Shrimpy API
     """
 
     def __init__(self):
         self.authenticator = ShrimpyAuthenticator()
 
     def parse_price(self):
+        """
+        Functionality for constantly streaming BTC price (Legacy function)
+        :return:
+        """
         res = requests.get('https://finance.yahoo.com/quote/BTC-USD?p=BTC-USD&.tsrc=fin-srch')
         soup = bs4.BeautifulSoup(res.text, 'lxml')
 
@@ -403,6 +425,11 @@ class PriceStreamer:
         return price, price_change
 
     def get_latest_prices(self, trading_symbol):
+        """
+        Function to get the latest prices for cryptocurrency
+        :param trading_symbol:
+        :return: latest_prices
+        """
 
         client = self.authenticator.authenticate_shrimpy()
 
@@ -470,6 +497,8 @@ class TradeCalls:
     def make_trade_call(self, extreme_scores_df):
         """
         Function to make trade calls with vader sentiment
+        :param extreme_scores_df:
+        :return: sentiment_Buy, sentiment_Sell
         """
         # VADER trade calls
         sentiment_Buy = []
@@ -496,6 +525,12 @@ class TradeCalls:
         return sentiment_Buy, sentiment_Sell
 
     def calculate_extreme_scores(self, high_headlines, trading_symbol):
+        """
+        Group all headlines by hour and calculate the sentiment for hour
+        :param high_headlines:
+        :param trading_symbol:
+        :return: extreme_score_df
+        """
         high_headlines['times'] = pd.to_datetime(high_headlines['publishedAt'])
         high_headlines['group_string'] = high_headlines['times'].dt.date.astype(str) + ' ' + high_headlines[
             'times'].dt.hour.astype(str) + ':00'
@@ -548,6 +583,10 @@ class DatabaseClient:
         self.article_table = pd.DataFrame()
 
     def read_db(self):
+        """
+        Read data from article fact table
+        :return: article_table
+        """
         cur = self.con.cursor()
 
         cur.execute("SELECT  full_date, hour, title, comp_sentiment FROM article_fact"
@@ -563,6 +602,11 @@ class DatabaseClient:
         return self.article_table
 
     def insert_article_db(self, df):
+        """
+        Insert collected data from Yahoo and News API to article_fact
+        :param df:
+        :return: None
+        """
         cur = self.con.cursor()
 
         for i in range(len(df)):
@@ -573,13 +617,19 @@ class DatabaseClient:
             timeid = cur.fetchall()
 
             cur.execute(
-                f"INSERT INTO article_fact (dateid, timeid, title, url, comp_sentiment) VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['clean_title'][i]}', 'null', {df['compound'][i]});")
+                f"INSERT INTO article_fact (dateid, timeid, title, url, comp_sentiment) "
+                f"VALUES ({dateid[0][0]}, {timeid[0][0]}, '{df['clean_title'][i]}', 'null', {df['compound'][i]});")
 
         self.con.commit()
 
 
 
     def insert_sentiment_db(self, df):
+        """
+        Insert analysed sentiment for hour to sentiment tbale
+        :param df:
+        :return: None
+        """
         cur = self.con.cursor()
 
         cur.execute(f"SELECT dateid FROM date_dim WHERE full_date = '{df.dateid}'")
@@ -605,6 +655,8 @@ def main():
     Main function
     :return: None
     """
+
+    # Initialise all classes
     article_cleaner = ArticleCleaner()
     yahoo_article_streamer = YahooArticleStreamer()
 
@@ -614,35 +666,35 @@ def main():
     sentiment_analyzer = SentimentAnalyzer()
     database_client = DatabaseClient()
 
+    # Collect all articles
     news_api_articles = news_api_streamer.stream_articles(query, yesterdays_date, todays_date)
     yahoo_articles = yahoo_article_streamer.get_the_news(query)
 
+    # Convert JSON data to DataFrames
     news_article_data = pd.json_normalize(news_api_articles['articles'])
     news_api_df, outlets = news_api_cleaner.create_article(news_article_data)
     news_api_df['publishedAt'] = pd.to_datetime(news_api_df['publishedAt'], infer_datetime_format=True)
 
     yahoo_clean_title = np.array([article_cleaner.clean_article(article) for article in yahoo_articles['title']])
-    #yahoo_clean_desc = np.array([article_cleaner.clean_article(article) for article in yahoo_articles['description']])
-
     news_api_clean_title = np.array([article_cleaner.clean_article(article) for article in news_api_df['title']])
-    #news_api_clean_desc = np.array([article_cleaner.clean_article(article) for article in news_api_df['description']])
 
     yahoo_articles['clean_title'] = yahoo_clean_title
-    #yahoo_articles['clean_description'] = yahoo_clean_desc
-
     news_api_df['clean_title'] = news_api_clean_title
-    #news_api_df['clean_description'] = news_api_clean_desc
 
+    # Only get articles from Yahoo for last hour
     recent_yahoo_articles = article_cleaner.get_recent_articles(yahoo_articles)
 
     all_headlines = recent_yahoo_articles[['publishedAt', 'clean_title']]
     all_headlines = all_headlines.append(news_api_df[['publishedAt', 'clean_title']])
 
+    # Make sure all articles are only from last hour
     all_headlines['publishedAt'] = pd.to_datetime(all_headlines['publishedAt'])
     all_headlines = all_headlines[(all_headlines['publishedAt'] < datetime.now() - timedelta(hours=1))]
 
+    # Analyse sentient from articles
     scored_headlines = sentiment_analyzer.analyze_recent_headlines(all_headlines)
 
+    # Get only extreme articles
     high_headlines = scored_headlines[(scored_headlines['compound'] > .5) | (scored_headlines['compound'] < -0.5)]
     high_headlines = high_headlines.reset_index()
 
@@ -651,18 +703,22 @@ def main():
     high_headlines['publishedAt'] = pd.to_datetime(high_headlines['publishedAt'].dt.date, infer_datetime_format=True) + \
                                     high_headlines['publishedAt'].dt.hour.astype('timedelta64[h]')
 
+    # Get dateid and timeid based on the published date
     high_headlines['dateid'] = high_headlines['publishedAt'].dt.strftime('%d/%m/%Y')
     high_headlines['timeid'] = high_headlines['publishedAt'].dt.hour
 
+    # Insert articles to database
     database_client.insert_article_db(high_headlines)
 
     trade_caller = TradeCalls()
 
+    # Calculate extreme scores for the hour
     calculated_df = trade_caller.calculate_extreme_scores(high_headlines, trading_symbol)
     calculated_df['trading_symbol'] = trading_symbol
     calculated_df['dateid'] = calculated_df['Date'].dt.strftime('%d/%m/%Y')
     calculated_df['timeid'] = calculated_df['Date'].dt.hour
 
+    # Insert hourly sentiment to sentiment table
     database_client.insert_sentiment_db(calculated_df.iloc[-1])
 
     # sentiment_Buy, sentiment_Sell = trade_caller.make_trade_call(df)
