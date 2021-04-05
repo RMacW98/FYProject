@@ -116,4 +116,4 @@ class SentView(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'sent_view'
+        db_table = 'sent_view_interval'
