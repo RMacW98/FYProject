@@ -56,7 +56,7 @@
 ## About The Project
 
   <a href="https://cryptocaller.ie">
-    <img src="DjangoApp/static/images/Homescreen.png" alt="Logo">
+    <img src="DjangoApp/static/images/Homescreen.png" alt="Logo" width="80" height="80">
   </a>
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
