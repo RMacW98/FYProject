@@ -1,5 +1,5 @@
 # FYProject
-A repository with consistent updates to the development of my FYProject
+
 
 
 
@@ -12,19 +12,14 @@ A repository with consistent updates to the development of my FYProject
     <img src="DjangoApp/static/images/cryptoicon.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">CryptoCaller App</h3>
 
   <p align="center">
     An awesome README template to jumpstart your projects!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/RMacW98/FYProject"><strong>Explore the app »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
   </p>
 </p>
 
