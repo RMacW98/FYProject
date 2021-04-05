@@ -56,7 +56,7 @@
 ## About The Project
 
   <a href="https://cryptocaller.ie">
-    <img src="DjangoApp/static/images/Homescreen.png" alt="Logo" width="80" height="80">
+    <img src="DjangoApp/static/images/Homescreen.PNG" alt="Logo" width="80" height="80">
   </a>
 
 There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
