@@ -5,7 +5,7 @@
 # Start from an existing image with Python 3.8 installed
 FROM python:3.8
 
-MAINTAINER Mark Foley
+MAINTAINER ROSS MACWILLIAM
 
 # Run a series of Linux commands to ensure that
 # 1. Everything is up-to-date and
